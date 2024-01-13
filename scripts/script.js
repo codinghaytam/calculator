@@ -1,7 +1,6 @@
 //a function that separates the elements of a string to identify the operation and give the resulte
 function operation(text)
 {
-    console.log(text);
     for ( i = 0 ; i < (text.length - 1) ; i++ )
     {
         if (text[i]==="(")
@@ -12,7 +11,7 @@ function operation(text)
             text=text.toSpliced(i+1,j-i);
         }
     }
-    console.log(text);
+
     for ( i = 0 ; i <= (text.length - 1) ; i++ ) 
     {
         if ( text [i] == "*" )
@@ -26,7 +25,6 @@ function operation(text)
                 text=text.toSpliced(i,2);   
             }
     }
-    console.log(text);
 
     let s = Number(text[0]);
     for( i = 0 ; i <= (text.length-1) ; i+=2 ) 
@@ -45,6 +43,7 @@ function operation(text)
         }
     return s;
 }
+
 
 function input_handler(input)
 {
@@ -65,8 +64,17 @@ function input_handler(input)
     input = input.split(" ");
     return input;
 }
-const buttons=Array.from(document.querySelectorAll("button"));
-console.log(buttons)
+
+
+const screen_input = document.querySelector(".screen > #input"); 
+//moves focus to input a window loading
+window.addEventListener('load',()=>{
+    screen_input.focus();
+}
+);
+
+const display=document.querySelector(".screen > #output");
+const buttons = Array.from(document.querySelectorAll("button"));
 let OrigninColorOfButton=buttons[0].style.background;
 for ( i = 0; i < buttons.length; i++)
 {
@@ -94,4 +102,27 @@ for ( i = 0; i < buttons.length; i++)
         );
 
 }
+
+for ( i = 0; i < buttons.length; i++){
+    if(i < buttons.length-1 && i>1)
+    {
+        buttons[i].addEventListener("click",function(e){
+            screen_input.value+=e.target.textContent;
+        }
+            );
+    }
+    else
+    {
+        buttons[i].addEventListener("click",function(e){
+            display.textContent=String(operation(input_handler(e.target.value)))
+        }
+            );
+    }
+
+
+}
+
+
+
+
 
