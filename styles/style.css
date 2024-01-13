@@ -27,6 +27,9 @@ body{
     border-width: 2px;
     border-radius: 10px;
     margin-bottom: 20px;
+    display: flex;
+    justify-content:space-between;
+    font-family: monospace,sans-serif;
 }
 .controles{
     display: flex;
@@ -50,4 +53,32 @@ body{
     border-style: solid;
     border-color: black;
     border-radius: 5px;
+}
+.screen #input{
+    padding: 10px 0px;
+    height: 10px;
+    margin-left: 10px;
+    border:none;
+    outline: none;
+    background-color: #303030;
+    user-select:none;
+    font-family: monospace,sans-serif;
+    font-size: 15px;
+    font-weight: normal;
+}
+.screen #output{
+    margin: 0px;
+    padding: 10px 10px ;
+    align-self:end ;
+    color:antiquewhite;
+    font-size: 15px;
+    opacity: 0.5;
+}
+::placeholder{
+    color:antiquewhite;
+    opacity: 0.5;
+    font-family: monospace,sans-serif;
+    font-size: 15px;
+    font-weight: normal;
+
 }
