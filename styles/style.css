@@ -1,0 +1,15 @@
+body{
+    display:flex;
+    background-color:#010314 ;
+    justify-content: center;
+    align-items: center;
+}
+#calculator{
+    border-style: solid;
+    border-color:lightgray;
+    border-radius: 5px;
+    width: 450px;
+    height:470px;
+    background-color: #010330;
+    
+}
