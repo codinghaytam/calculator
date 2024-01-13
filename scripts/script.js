@@ -65,4 +65,33 @@ function input_handler(input)
     input = input.split(" ");
     return input;
 }
+const buttons=Array.from(document.querySelectorAll("button"));
+console.log(buttons)
+let OrigninColorOfButton=buttons[0].style.background;
+for ( i = 0; i < buttons.length; i++)
+{
+    if(i<buttons.length-1)
+    {
+
+        buttons[i].addEventListener("mousedown",
+        function(e){
+            e.target.style.background="#7A7A7A";
+        }
+            );
+    }
+    else
+    {
+        buttons[i].addEventListener("mousedown",
+        function(e){
+            e.target.style.background="#2BA100";
+        }
+            );
+    }   
+    buttons[i].addEventListener("mouseup",
+    function(e){
+        e.target.style.background=OrigninColorOfButton;
+    }
+        );
+
+}
 
