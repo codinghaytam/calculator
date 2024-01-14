@@ -1,6 +1,7 @@
 //a function that separates the elements of a string to identify the operation and give the resulte
 function operation(text)
 {
+    if (typeof(text)=="string")return text;
     for ( i = 0 ; i < (text.length - 1) ; i++ )
     {
         if (text[i]==="(")
@@ -8,18 +9,23 @@ function operation(text)
             let j = i;
             while ( text[j] != ")") j++;
             text[i]=operation(text.slice(i+1,j));
-            text=text.toSpliced(i+1,j-i);
+            text.splice(i+1,j-i);
+        }
+        if (text[i]==="^")
+        {
+
+            text[i-1]=Math.pow(Number(text[i-1]),Number(text[i+1]));
+            text.splice(i,2);
         }
     }
-
     for ( i = 0 ; i <= (text.length - 1) ; i++ ) 
     {
-        if ( text [i] == "*" )
+        if ( text [i] === "*" )
             {
                 text[i-1] = String( Number(text[i-1]) * Number(text[i+1]) );
                 text=text.toSpliced(i,2);   
             }
-        if(text [i] == "/" )
+        if(text [i] === "/" )
             {
                 text[i-1]=String( Number(text[i-1]) / Number(text[i+1]) );
                 text=text.toSpliced(i,2);   
@@ -48,24 +54,37 @@ function operation(text)
 
 function input_handler(input)
 {
-    let symboles="+-/*()";
+    let symboles="+-/*^()";
     input = input.trim();
     input = input.replaceAll(" ","");
     for ( i = 0; i < input.length ; i++ )
     {
-        if(isNaN(Number(input[i])) && symboles.indexOf(input[i])==-1) return "Syntax ERROR";
-        if(symboles.indexOf(input[i])>=0 && symboles.indexOf(input[i+1])>=0) return "Syntax ERROR";
+        if(isNaN(Number(input[i])) && symboles.indexOf(input[i])<0 ) return "Syntax ERROR 1";
+        if(symboles.indexOf(input[i])>=0 && symboles.indexOf(input[i+1])==symboles.indexOf(input[i])) return "Syntax ERROR 2";
     }
-    if(symboles.indexOf(input[0])>=0 || symboles.indexOf(input[input.length-1])>=0) return "Syntax ERROR";
-    for( i = 0; i < (symboles.length); i++)
+    if((symboles.indexOf(input[0])>=0 && input[0]!="(") || (symboles.indexOf(input[input.length-1])>=0 && input[input.length-1]!=")")) return "Syntax ERROR 3";
+    let j=0;
+ 
+    for( i = 0; i < input.length; i++)
     {
-        if(symboles.indexOf(input[i]))
-        input = input.replaceAll(symboles[i]," "+symboles[i]+" ");
+
+        if(symboles.indexOf(input[i])>=0)
+        {
+            j=symboles.indexOf(input[i]);
+            if(input[i]=="(") {input = input.replaceAll(symboles[j],symboles[j]+" ");i+=2;}
+            else if(input[i]==")") {input = input.replaceAll(symboles[j]," "+symboles[j]);i+=2;}
+            else {  
+                    input = input.replaceAll(symboles[j]," "+symboles[j]+" ");
+                    i+=1;
+                }
+        }
+
     }
+    console.log(input);
     input = input.split(" ");
+    
     return input;
 }
-
 
 const screen_input = document.querySelector(".screen > #input"); 
 //moves focus to input a window loading
@@ -134,13 +153,13 @@ for ( i = 0; i < buttons.length; i++){
     {
         buttons[i].addEventListener("click",function(e){
             display.textContent=operation(input_handler(screen_input.value));
+            console.log(input_handler(screen_input.value));
         }
             );
     }
-
+    
 
 }
-
 
 
 
