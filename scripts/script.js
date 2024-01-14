@@ -26,6 +26,7 @@ function operation(text)
             }
     }
 
+
     let s = Number(text[0]);
     for( i = 0 ; i <= (text.length-1) ; i+=2 ) 
         { 
@@ -58,7 +59,7 @@ function input_handler(input)
     if(symboles.indexOf(input[0])>=0 || symboles.indexOf(input[input.length-1])>=0) return "Syntax ERROR";
     for( i = 0; i < (symboles.length); i++)
     {
-        if(symboles)
+        if(symboles.indexOf(input[i]))
         input = input.replaceAll(symboles[i]," "+symboles[i]+" ");
     }
     input = input.split(" ");
@@ -111,10 +112,28 @@ for ( i = 0; i < buttons.length; i++){
         }
             );
     }
-    else
+    else if(i===1)
     {
         buttons[i].addEventListener("click",function(e){
-            display.textContent=String(operation(input_handler(e.target.value)))
+            
+            screen_input.value = "";
+            display.textContent = "";
+        }
+            );
+    }
+    else if(i===0)
+    {
+        buttons[i].addEventListener("click",function(e){
+            if(screen_input.value.length>0)
+                screen_input.value = screen_input.value.substring(0,screen_input.value.length-1) ;
+                
+        }
+            );
+    }
+    else 
+    {
+        buttons[i].addEventListener("click",function(e){
+            display.textContent=operation(input_handler(screen_input.value));
         }
             );
     }
