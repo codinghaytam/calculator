@@ -63,11 +63,14 @@ function input_handler(input)
     let symboles = "+-/*^()";
     input = input.trim();
     input = input.replaceAll(" ","");
-    for ( i = 1; i < input.length-1 ; i++ )
+    for ( i = 1; i < input.length ; i++ )
     {
         if(is_NaN(input[i]) && symboles.indexOf(input[i])<0) return "Syntax ERROR";
         if(symboles.indexOf(input[i])>=0 && input[i+1]!="(" && isNaN(Number(input[i+1]))) return "Syntax ERROR";
-
+        if(input[i]==".")
+        {
+            if(isNaN(Number(input[i+1])) || isNaN(Number(input[i-1])))return "Syntax ERROR";
+        }
     }
     if((symboles.indexOf(input[0])>=0 && input[0]!="-"&& input[0]!="(" ) || (symboles.indexOf(input[input.length-1])>=0 && input[input.length-1]!=")")) return "Syntax ERROR";
     if(symboles.indexOf(input[input.length-1])<0 && isNaN(Number(input[input.length-1])))return "Syntax ERROR";
@@ -88,6 +91,11 @@ function input_handler(input)
     }
 
     input = input.split(" ");
+    for ( i = 0; i < input.length ; i++ )
+    {
+        if(isNaN(Number(input[i])) && symboles.indexOf(input[i])<0)return "Syntax ERROR 5";
+        console.log(i);
+    }
     
     return input;
 }
@@ -170,7 +178,9 @@ for ( i = 0; i < buttons.length; i++){
     }
     
 
+    
 }
+
 
 
 
