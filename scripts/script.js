@@ -57,10 +57,11 @@ function input_handler(input)
     let symboles="+-/*^()";
     input = input.trim();
     input = input.replaceAll(" ","");
-    for ( i = 0; i < input.length ; i++ )
+    for ( i = 0; i < input.length-1 ; i++ )
     {
         if(isNaN(Number(input[i])) && symboles.indexOf(input[i])<0 ) return "Syntax ERROR 1";
-        if(symboles.indexOf(input[i])>=0 && symboles.indexOf(input[i+1])==symboles.indexOf(input[i])) return "Syntax ERROR 2";
+        if(symboles.indexOf(input[i])>=0 && input[i+1]!="(" && isNaN(Number(input[i+1]))) return "Syntax ERROR 2";
+
     }
     if((symboles.indexOf(input[0])>=0 && input[0]!="(") || (symboles.indexOf(input[input.length-1])>=0 && input[input.length-1]!=")")) return "Syntax ERROR 3";
     let j=0;
@@ -73,10 +74,7 @@ function input_handler(input)
             j=symboles.indexOf(input[i]);
             if(input[i]=="(") {input = input.replaceAll(symboles[j],symboles[j]+" ");i+=2;}
             else if(input[i]==")") {input = input.replaceAll(symboles[j]," "+symboles[j]);i+=2;}
-            else {  
-                    input = input.replaceAll(symboles[j]," "+symboles[j]+" ");
-                    i+=1;
-                }
+            else {input = input.replaceAll(symboles[j]," "+symboles[j]+" ");i+=1;}
         }
 
     }
