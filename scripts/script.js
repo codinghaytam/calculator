@@ -1,3 +1,9 @@
+
+function is_NaN(text)
+{
+    if(isNaN(Number(text)) && text!=".")return true;
+    else return false;
+}
 //a function that separates the elements of a string to identify the operation and give the resulte
 function operation(text)
 {
@@ -11,7 +17,7 @@ function operation(text)
             text[i]=operation(text.slice(i+1,j));
             text.splice(i+1,j-i);
         }
-        if (text[i]==="^")
+        if (text[i]==="^" )
         {
 
             text[i-1]=Math.pow(Number(text[i-1]),Number(text[i+1]));
@@ -54,16 +60,18 @@ function operation(text)
 
 function input_handler(input)
 {
-    let symboles="+-/*^()";
+    let symboles = "+-/*^()";
     input = input.trim();
     input = input.replaceAll(" ","");
-    for ( i = 0; i < input.length-1 ; i++ )
+    for ( i = 1; i < input.length-1 ; i++ )
     {
-        if(isNaN(Number(input[i])) && symboles.indexOf(input[i])<0 ) return "Syntax ERROR ";
+        if(is_NaN(input[i]) && symboles.indexOf(input[i])<0) return "Syntax ERROR";
         if(symboles.indexOf(input[i])>=0 && input[i+1]!="(" && isNaN(Number(input[i+1]))) return "Syntax ERROR";
 
     }
     if((symboles.indexOf(input[0])>=0 && input[0]!="-"&& input[0]!="(" ) || (symboles.indexOf(input[input.length-1])>=0 && input[input.length-1]!=")")) return "Syntax ERROR";
+    if(symboles.indexOf(input[input.length-1])<0 && isNaN(Number(input[input.length-1])))return "Syntax ERROR";
+    if(input[0]==".")return "Syntax ERROR";
     let j=0;
  
     for( i = 0; i < input.length; i++)
@@ -78,7 +86,7 @@ function input_handler(input)
         }
 
     }
-    console.log(input);
+
     input = input.split(" ");
     
     return input;
