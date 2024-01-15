@@ -74,9 +74,6 @@ body{
     color:antiquewhite;
     font-size: 17px;
     opacity: 0.5;
-    direction:rtl;
-    border: solid;
-    overflow:hidden;
 }
 ::placeholder{
     color:antiquewhite;

@@ -63,7 +63,7 @@ function input_handler(input)
         if(symboles.indexOf(input[i])>=0 && input[i+1]!="(" && isNaN(Number(input[i+1]))) return "Syntax ERROR";
 
     }
-    if((symboles.indexOf(input[0])>=0 && input[0]!="(") || (symboles.indexOf(input[input.length-1])>=0 && input[input.length-1]!=")")) return "Syntax ERROR";
+    if((symboles.indexOf(input[0])>=0 && input[0]!="-"&& input[0]!="(" ) || (symboles.indexOf(input[input.length-1])>=0 && input[input.length-1]!=")")) return "Syntax ERROR";
     let j=0;
  
     for( i = 0; i < input.length; i++)
