@@ -68,11 +68,15 @@ body{
 }
 .screen #output{
     margin: 0px;
-    padding: 10px 10px ;
-    align-self:end ;
+    margin-right: 15px;
+    margin-left: -1000px; 
+    align-self:flex-end ;
     color:antiquewhite;
-    font-size: 15px;
+    font-size: 17px;
     opacity: 0.5;
+    direction:rtl;
+    border: solid;
+    overflow:hidden;
 }
 ::placeholder{
     color:antiquewhite;
