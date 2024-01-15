@@ -59,11 +59,11 @@ function input_handler(input)
     input = input.replaceAll(" ","");
     for ( i = 0; i < input.length-1 ; i++ )
     {
-        if(isNaN(Number(input[i])) && symboles.indexOf(input[i])<0 ) return "Syntax ERROR 1";
-        if(symboles.indexOf(input[i])>=0 && input[i+1]!="(" && isNaN(Number(input[i+1]))) return "Syntax ERROR 2";
+        if(isNaN(Number(input[i])) && symboles.indexOf(input[i])<0 ) return "Syntax ERROR ";
+        if(symboles.indexOf(input[i])>=0 && input[i+1]!="(" && isNaN(Number(input[i+1]))) return "Syntax ERROR";
 
     }
-    if((symboles.indexOf(input[0])>=0 && input[0]!="(") || (symboles.indexOf(input[input.length-1])>=0 && input[input.length-1]!=")")) return "Syntax ERROR 3";
+    if((symboles.indexOf(input[0])>=0 && input[0]!="(") || (symboles.indexOf(input[input.length-1])>=0 && input[input.length-1]!=")")) return "Syntax ERROR";
     let j=0;
  
     for( i = 0; i < input.length; i++)
@@ -118,6 +118,11 @@ for ( i = 0; i < buttons.length; i++)
         e.target.style.background=OrigninColorOfButton;
     }
         );
+    buttons[i].addEventListener("mouseleave",
+        function(e){
+            e.target.style.background=OrigninColorOfButton;
+        }
+            );
 
 }
 
