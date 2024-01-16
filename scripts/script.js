@@ -38,7 +38,7 @@ function operation(text)
                     text[i-1]=String( Number(text[i-1]) / Number(text[i+1]) );
                     text=text.toSpliced(i,2);
                 }   
-                else return "MATH error"
+                else return "MATH error";
             }
     }
 
@@ -97,8 +97,7 @@ function input_handler(input)
     input = input.split(" ");
     for ( i = 0; i < input.length ; i++ )
     {
-        if(isNaN(Number(input[i])) && symboles.indexOf(input[i])<0)return "Syntax ERROR 5";
-        console.log(i);
+        if(isNaN(Number(input[i])) && symboles.indexOf(input[i])<0)return "Syntax ERROR";
     }
     
     return input;
@@ -176,7 +175,6 @@ for ( i = 0; i < buttons.length; i++){
     {
         buttons[i].addEventListener("click",function(e){
             display.textContent=operation(input_handler(screen_input.value));
-            console.log(input_handler(screen_input.value));
         }
             );
     }
