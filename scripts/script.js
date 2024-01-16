@@ -33,8 +33,12 @@ function operation(text)
             }
         if(text [i] === "/" )
             {
-                text[i-1]=String( Number(text[i-1]) / Number(text[i+1]) );
-                text=text.toSpliced(i,2);   
+                if(Number(text[i+1]!=0))
+                {
+                    text[i-1]=String( Number(text[i-1]) / Number(text[i+1]) );
+                    text=text.toSpliced(i,2);
+                }   
+                else return "MATH error"
             }
     }
 
