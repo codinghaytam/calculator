@@ -14,8 +14,8 @@ function operation(text)
         {
             let j = i;
             while ( text[j] != ")") j++;
-            text[i]=operation(text.slice(i+1,j));
-            text.splice(i+1,j-i);
+            text.splice(i,j-i+1,operation(text.slice(i+1,j)));
+          
         }
         if (text[i]==="^" )
         {
@@ -24,27 +24,28 @@ function operation(text)
             text.splice(i,2);
         }
     }
-    for ( i = 0 ; i <= (text.length - 1) ; i++ ) 
+   
+    for ( i = 0 ; i < (text.length - 1) ; i++ ) 
     {
         if ( text [i] === "*" )
             {
                 text[i-1] = String( Number(text[i-1]) * Number(text[i+1]) );
-                text=text.toSpliced(i,2);   
+                text.splice(i,i+1);
+                i--;   
             }
         if(text [i] === "/" )
             {
-                if(Number(text[i+1]!=0))
+                if(Number(text[i+1])!=0)
                 {
                     text[i-1]=String( Number(text[i-1]) / Number(text[i+1]) );
-                    text=text.toSpliced(i,2);
+                    text.splice(i,i+1);
+                    i--;
                 }   
                 else return "MATH error";
             }
     }
-
-
     let s = Number(text[0]);
-    for( i = 0 ; i <= (text.length-1) ; i+=2 ) 
+    for( i = 0 ; i <= (text.length-1) ; i++ ) 
         { 
 
             switch(text[i+1])
@@ -67,37 +68,30 @@ function input_handler(input)
     let symboles = "+-/*^()";
     input = input.trim();
     input = input.replaceAll(" ","");
-    for ( i = 1; i < input.length ; i++ )
+    for ( i = 1; i < input.length-1 ; i++ )
     {
-        if(is_NaN(input[i]) && symboles.indexOf(input[i])<0) return "Syntax ERROR";
-        if(symboles.indexOf(input[i])>=0 && input[i+1]!="(" && isNaN(Number(input[i+1]))) return "Syntax ERROR";
+        if(is_NaN(input[i]) && symboles.indexOf(input[i])<0) { return "Syntax ERROR 1"};
+        if(symboles.indexOf(input[i])>=0 && input[i+1]!="(" && isNaN(Number(input[i+1])) && input[i]<input.length) { return "Syntax ERROR 2";}
+        
         if(input[i]==".")
         {
-            if(isNaN(Number(input[i+1])) || isNaN(Number(input[i-1])))return "Syntax ERROR";
+            if(isNaN(Number(input[i+1])) || isNaN(Number(input[i-1])))return "Syntax ERROR 3";
         }
     }
-    if((symboles.indexOf(input[0])>=0 && input[0]!="-"&& input[0]!="(" ) || (symboles.indexOf(input[input.length-1])>=0 && input[input.length-1]!=")")) return "Syntax ERROR";
-    if(symboles.indexOf(input[input.length-1])<0 && isNaN(Number(input[input.length-1])))return "Syntax ERROR";
-    if(input[0]==".")return "Syntax ERROR";
-    let j=0;
- 
-    for( i = 0; i < input.length; i++)
+    if((symboles.indexOf(input[0])>=0 && input[0]!="-"&& input[0]!="(" ) || (symboles.indexOf(input[input.length-1])>=0 && input[input.length-1]!=")")) return "Syntax ERROR 4";
+    if(symboles.indexOf(input[input.length-1])<0 && isNaN(Number(input[input.length-1])))return "Syntax ERROR 6";
+    if(input[0]==".")return "Syntax ERROR 5";
+    for( i = 0; i < symboles.length; i++)
     {
-
-        if(symboles.indexOf(input[i])>=0)
-        {
-            j=symboles.indexOf(input[i]);
-            if(input[i]=="(") {input = input.replaceAll(symboles[j],symboles[j]+" ");i+=2;}
-            else if(input[i]==")") {input = input.replaceAll(symboles[j]," "+symboles[j]);i+=2;}
-            else {input = input.replaceAll(symboles[j]," "+symboles[j]+" ");i+=1;}
-        }
-
+        if(symboles[i]=="(" ) {input = input.replaceAll("(","( ");}
+        else if(symboles[i]==")") {input = input.replaceAll(")"," )");} 
+        else {input = input.replaceAll(symboles[i]," "+symboles[i]+" ");}
     }
 
     input = input.split(" ");
-    for ( i = 0; i < input.length ; i++ )
+    for ( i = 0; i < input.length-1 ; i++ )
     {
-        if(isNaN(Number(input[i])) && symboles.indexOf(input[i])<0)return "Syntax ERROR";
+        if(isNaN(Number(input[i])) && symboles.indexOf(input[i])<0){return "Syntax ERROR";}
     }
     
     return input;
